@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-01-12T14:56:52+08:00</updated><id>/</id><title type="html">Daniel’s Programming Blog</title><subtitle>Jekyll version of the Massively theme by HTML5UP</subtitle><entry><title type="html">Pushing to Google Play &amp;amp; the App Store</title><link href="/blog/pushing-to-app-store/" rel="alternate" type="text/html" title="Pushing to Google Play &amp; the App Store" /><published>2017-12-21T00:00:00+08:00</published><updated>2017-12-21T00:00:00+08:00</updated><id>/blog/pushing-to-app-store</id><content type="html" xml:base="/blog/pushing-to-app-store/">&lt;p&gt;After close to four months of part-time work, we’ve finally pushed the first version of the apps to the Android and Apple app stores. Although the general public won’t be able to use the apps, some screenshots are available on the store pages (available in SG only):&lt;/p&gt;
+
+&lt;h2 align=&quot;middle&quot;&gt;Driver App&lt;/h2&gt;
+
+&lt;div align=&quot;middle&quot; style=&quot;width: 280px; height: 40px; margin: auto;&quot;&gt;
+&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.wlhdriver&quot;&gt;&lt;img src=&quot;/assets/images/google-play-badge.png&quot; style=&quot;max-height: 40px; float: left;&quot; /&gt;&lt;/a&gt;
+&lt;a href=&quot;https://itunes.apple.com/sg/app/wulihao-driver/id1329646723?mt=8&quot;&gt;&lt;img src=&quot;/assets/images/app-store-badge.svg&quot; style=&quot;max-height: 40px; float: right;&quot; /&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;h2 align=&quot;middle&quot;&gt;Customer App&lt;/h2&gt;
+&lt;div align=&quot;middle&quot; style=&quot;width: 280px; height: 40px; margin: auto;&quot;&gt;
+&lt;a href=&quot;https://play.google.com/store/apps/details?id=com.wlhtest&quot;&gt;&lt;img src=&quot;/assets/images/google-play-badge.png&quot; style=&quot;max-height: 40px; float: left;&quot; /&gt;&lt;/a&gt;
+&lt;a href=&quot;https://itunes.apple.com/sg/app/wulihao-customer/id1329632820?mt=8&quot;&gt;&lt;img src=&quot;/assets/images/app-store-badge.svg&quot; style=&quot;max-height: 40px; float: right;&quot; /&gt;&lt;/a&gt;
+&lt;/div&gt;</content><summary type="html">It's finally done!</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/assets/images/fireworks.jpeg" /></entry><entry><title type="html">Wu Li Hao</title><link href="/blog/Wu-Li-Hao/" rel="alternate" type="text/html" title="Wu Li Hao" /><published>2017-12-21T00:00:00+08:00</published><updated>2017-12-21T00:00:00+08:00</updated><id>/blog/Wu-Li-Hao</id><content type="html" xml:base="/blog/Wu-Li-Hao/"></content><summary type="html">Order and delivery tracking apps to streamline the business flow of a local noodle manufacturer.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/assets/images/wulihao.png" /></entry><entry><title type="html">Time Savers for Developing in React</title><link href="/blog/time-savers-for-developing-in-react/" rel="alternate" type="text/html" title="Time Savers for Developing in React" /><published>2017-11-09T00:00:00+08:00</published><updated>2017-11-09T00:00:00+08:00</updated><id>/blog/time-savers-for-developing-in-react</id><content type="html" xml:base="/blog/time-savers-for-developing-in-react/">&lt;p&gt;It’s been a while since the &lt;a href=&quot;/blog/building-a-mobile-app/&quot;&gt;last post&lt;/a&gt;, but I’ve learned a couple more lessons which I’d like to share.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;identify-and-abstract-out-reusable-components&quot;&gt;Identify and abstract out reusable components&lt;/h2&gt;
+&lt;p&gt;Over the course of this project, I realize I have been taking a top-down approach with regard to development. Once our designer had finished the wireframes, I started working screen-by-screen: I’d work on the settings page, then the storefront page, then the notifications page, etc. At the time, it made sense. The content of each screen was almost completely unique, so I felt this was a fine approach to take.&lt;/p&gt;
+
+&lt;p&gt;However, in hindsight, I realize that I would have saved a lot of time if I had taken a day or so to identify small components that would be reused, and build those first. Much like how any program will have some functions that will be called from multiple places, an app with a consistent design language will definitely have components (such as buttons or modals) which make an appearance in multiple screens.&lt;/p&gt;
+
+&lt;p&gt;In the case of this app, I would have benefited massively from building a separate component for this button:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/cartbutton.gif&quot; style=&quot;margin: auto; display: block; max-width: 70%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The reason I didn’t at first was that it was a fairly simple element–a &lt;code class=&quot;highlighter-rouge&quot;&gt;TouchableOpacity&lt;/code&gt; with some text inside. However, the fact that it’s a simple component shouldn’t be a deterrent from abstracting it. This button was used in almost every page in &lt;em&gt;both&lt;/em&gt; apps (for different functions), and that should have been a clear indicator that it deserved to be its own component.&lt;/p&gt;
+
+&lt;p&gt;At first, I didn’t feel inconvenienced. I was working on this project alongside my regular coursework, so progress on the app was done in slow, spread-out chunks. However, when the time came to polish off some features (e.g. experimenting with small UI improvements such as drop shadows and animations), it became a nightmare to change all the styles in all the files in which this button made an appearance.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Don%27t_repeat_yourself&quot;&gt;DRY&lt;/a&gt; is a common principle in software development, and I’m not sure why I didn’t realize earlier that it’s equally applicable to front-end elements. In fact, React makes it &lt;a href=&quot;https://reactjs.org/docs/composition-vs-inheritance.html&quot;&gt;easy&lt;/a&gt;! Components are made to be reused, and modifying them to suit an individual page’s needs can be done through supplying different &lt;code class=&quot;highlighter-rouge&quot;&gt;props&lt;/code&gt; or &lt;code class=&quot;highlighter-rouge&quot;&gt;children&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;get-a-linter&quot;&gt;Get a linter&lt;/h2&gt;
+
+&lt;p&gt;When you’re working on getting features up, it can be tempting to tell yourself “I’ll clean up later”. However, in my experience, this often doesn’t pan out, and you’re left with code which is hard to read. Sometimes, even if you do intend to clean up, it can be quite discouraging to go back to a long, messy file.&lt;/p&gt;
+
+&lt;p&gt;If you haven’t yet, one thing that has helped me immensely is installing &lt;a href=&quot;https://eslint.org/&quot;&gt;ESLint&lt;/a&gt;, and getting a good style guide (e.g. &lt;a href=&quot;https://github.com/airbnb/javascript&quot;&gt;Airbnb’s&lt;/a&gt;. There’s even an &lt;a href=&quot;https://www.npmjs.com/package/eslint-config-airbnb&quot;&gt;npm package&lt;/a&gt; for it!).&lt;/p&gt;
+
+&lt;p&gt;Over time, I feel that this has helped me get into the habit of writing neat code, even when I’m using editors which don’t have a linter installed.&lt;/p&gt;
+
+&lt;hr /&gt;</content><summary type="html">Further lessons I've learned in this project</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/assets/images/hourglass-and-laptop.jpeg" /></entry><entry><title type="html">Building a Cross-Platform Mobile App</title><link href="/blog/building-a-mobile-app/" rel="alternate" type="text/html" title="Building a Cross-Platform Mobile App" /><published>2017-10-03T00:00:00+08:00</published><updated>2017-10-03T00:00:00+08:00</updated><id>/blog/building-a-mobile-app</id><content type="html" xml:base="/blog/building-a-mobile-app/">&lt;p&gt;A while ago, a friend of mine asked me if I was interested in helping him build a couple of mobile apps to help streamline the business process for a local noodle supplier. It seemed like a fairly simple task–we wouldn’t be handling transactions, just building a platform to place orders and track deliveries.&lt;/p&gt;
+
+&lt;p&gt;Since I had a bit of experience with React at this point, I figured that this project would be a good chance to give React Native a try. Plus, being committed to a project which you know will be used in a business always helps to keep you attentive and responsible. I agreed to take on the project, and although I haven’t finished building it yet, here are some tips I wish I had known before starting out.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;react-native-is-great-but-it-has-its-shortcomings&quot;&gt;React Native is great, but it has its shortcomings&lt;/h2&gt;
+&lt;p&gt;React native is an amazing framework to conveniently build cross-platform apps, but this doesn’t mean that you don’t have to test on multiple devices! Much like how you should test your web-apps for cross-browser compatibility, it is important to test your React Native app on both iOS and Android to make sure things render as expected.&lt;/p&gt;
+
+&lt;p&gt;I use a MacBook Pro with a 120GB SSD, and although I intended to install Android Studio and test on both platforms, I ran out of space after installing XCode. Until I found time to install it on an external hard-drive, I was careful not to use any components marked “iOS only”, and hoped for the best. However, when I finally got around to running the app on an Android device, I discovered that all my ScrollView components had their padding removed! &lt;a href=&quot;https://github.com/facebook/react-native/issues/15707&quot;&gt;After&lt;/a&gt; &lt;a href=&quot;https://github.com/facebook/react-native/issues/2914&quot;&gt;Googling&lt;/a&gt; &lt;a href=&quot;https://github.com/facebook/react-native/issues/11367&quot;&gt;around&lt;/a&gt;, it seemed that other people have faced this problem, and used &lt;code class=&quot;highlighter-rouge&quot;&gt;margin&lt;/code&gt; as a workaround.&lt;/p&gt;
+
+&lt;p&gt;Fine. I changed my stylesheets, but unfortunately, &lt;code class=&quot;highlighter-rouge&quot;&gt;padding&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;margin&lt;/code&gt; are not identical. &lt;code class=&quot;highlighter-rouge&quot;&gt;padding&lt;/code&gt; adds space &lt;em&gt;within&lt;/em&gt; an element, while &lt;code class=&quot;highlighter-rouge&quot;&gt;margin&lt;/code&gt; adds space &lt;em&gt;around&lt;/em&gt; an element. In the end, I had to change a few components from this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;ScrollView style={{ padding: 20 }}&amp;gt;
+  ... children
+&amp;lt;/ScrollView&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;to this:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;ScrollView&amp;gt;
+  &amp;lt;View style={{ margin: 20 }}&amp;gt;
+    ... children
+  &amp;lt;/View&amp;gt;
+&amp;lt;/ScrollView&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Although that was a slightly frustrating bug, React Native is robust enough that it was pretty much the only cross-platform issue I ran into. Additionally, a lot of work could have been avoided had I been testing on both OSes from the start. The true challenge was trying to make sure the app renders nicely across different devices.&lt;/p&gt;
+
+&lt;h2 id=&quot;cross-device-rendering&quot;&gt;Cross-Device Rendering&lt;/h2&gt;
+&lt;p&gt;There are a lot of phones on the market today, and there is a wide variety of different screen resolutions. However, &lt;a href=&quot;http://iosres.com/&quot;&gt;most&lt;/a&gt; &lt;a href=&quot;http://www.mi.com/en/list/&quot;&gt;modern&lt;/a&gt; &lt;a href=&quot;https://www.samsung.com/us/mobile/phones/&quot;&gt;phones&lt;/a&gt; have a standard 16:9 aspect ratio (though the very latest models have been getting taller), so we can expect an app to more or less look the same across devices right? Wrong.&lt;/p&gt;
+
+&lt;p&gt;One thing I hadn’t considered was the fact that I was using some fixed sizes in my styles. For example, it’s fairly common in apps to have a header and a footer element for navigation purposes.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://is1.mzstatic.com/image/thumb/Purple118/v4/47/80/a1/4780a17a-276d-53c3-8d16-d9c3f09acc8f/source/392x696bb.jpg&quot; style=&quot;margin: auto; display: block; max-width: 100%&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center; font-size: 1rem&quot;&gt;&lt;i&gt;A header and footer in the Telegram app&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;These elements should take up as little space as possible in order for the actual content to have more real estate on screen. Therefore, in general their height will be fixed, and will take up a smaller percentage of the screen on larger devices as compared to smaller devices.&lt;/p&gt;
+
+&lt;p&gt;Additionally, since our app was catered toward an older demographic, we felt it was important that the font sizes and pictures be slightly larger than usual. I had been testing our app using a larger simulator, and when I ran the app on a smaller device, I found that the large font sizes and images caused some unintended wrapping. As a result of these fixed-width elements, the app was significantly different when rendered on two devices, even though their aspect ratio was the same.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/images/6s.png&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;/assets/images/5.png&quot; width=&quot;100%&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p style=&quot;text-align: center; font-size: 1rem&quot;&gt;&lt;i&gt;The app on an iPhone 6s vs. an iPhone 5&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;In the end, I suppose issues like these come down to design choices. Keeping in mind your target users, would you rather ensure the app renders nicely across all devices and change your original decisions, or stick with your choices and forsake some cross-device consistency? These are definitely not trivial choices, and something worth discussing with your team before moving forward.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;That’s all the tips I have for now! I’ll probably be making another post when I’m farther along in development, so look out for it!&lt;/p&gt;</content><summary type="html">If you thought cross-browser compatibility was finicky...</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://camo.githubusercontent.com/0a5cdea7053e94023fb22b5241aa5e774ce0df9e/68747470733a2f2f63646e2e7261776769742e636f6d2f616873616e617a696d2f776f726b73686f702f6d61737465722f696d672f72656163742d6e61746976652d6c6f676f2e737667" /></entry><entry><title type="html">Day Trader</title><link href="/blog/day-trader/" rel="alternate" type="text/html" title="Day Trader" /><published>2017-09-04T00:00:00+08:00</published><updated>2017-09-04T00:00:00+08:00</updated><id>/blog/day-trader</id><content type="html" xml:base="/blog/day-trader/"></content><summary type="html">A simple JavaScript/HTML5 game about technical analysis</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/assets/images/day-trader.png" /></entry><entry><title type="html">Neopets Autobuyer</title><link href="/blog/neopets-autobuyer/" rel="alternate" type="text/html" title="Neopets Autobuyer" /><published>2017-08-17T00:00:00+08:00</published><updated>2017-08-17T00:00:00+08:00</updated><id>/blog/neopets-autobuyer</id><content type="html" xml:base="/blog/neopets-autobuyer/"></content><summary type="html">A CLI autobuyer for the web game Neopets</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/assets/images/neopets-autobuyer.png" /></entry><entry><title type="html">Getting Started in Web Development</title><link href="/blog/getting-started-in-web-dev/" rel="alternate" type="text/html" title="Getting Started in Web Development" /><published>2017-07-20T00:00:00+08:00</published><updated>2017-07-20T00:00:00+08:00</updated><id>/blog/getting-started-in-web-dev</id><content type="html" xml:base="/blog/getting-started-in-web-dev/">&lt;p&gt;Close to the end of May, I started my first &lt;a href=&quot;https://github.com/workshopper/javascripting&quot;&gt;JavaScript&lt;/a&gt; and &lt;a href=&quot;https://github.com/workshopper/learnyounode&quot;&gt;Node.js&lt;/a&gt; tutorials after reading &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript&quot;&gt;Mozilla’s re-introduction to Javascript&lt;/a&gt;. In general, I would say that the experience has been very rewarding, and in this post I’ll be going through some of the challenges I’ve faced so far.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;syntactic-sugar&quot;&gt;Syntactic Sugar&lt;/h2&gt;
+&lt;p&gt;One of the key strengths of JavaScript is that it makes asynchronous functions extremely easy to work with via callbacks. This is particularly important in web applications, as you will most likely be making a call to fetch data from a webpage or API of some sort. Prior to learning JavaScript, the only other experience I’d had with HTTP requests was with Python’s &lt;a href=&quot;https://github.com/requests/requests&quot;&gt;requests&lt;/a&gt; package, in which the functions are blocking.&lt;/p&gt;
+
+&lt;p&gt;It took a while for me to get used to using callbacks, but I got there eventually. However, before I had time to feel proud of my achievement, I heard about &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises&quot;&gt;Promises&lt;/a&gt;–a better way of writing callbacks which offers increased readability and convenience. Still fresh and eager to learn, I dove into the documentation and tried to convert all the callbacks from my tutorials into Promises. When I was done with that, I came across the new &lt;a href=&quot;https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function&quot;&gt;async/await&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;I began to feel a bit frustrated–I had spent a lot of time learning what appeared to be three ways of doing the same thing:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// with a callback
+fetchData(url, (response) =&amp;gt; { 
+  saveData(response, (status) =&amp;gt; {
+    console.log(status);
+  });
+});
+
+// with a Promise
+fetchData(url)
+  .then((response) =&amp;gt; saveData(response))
+  .then((status) =&amp;gt; console.log(status));
+
+// with async/await
+let response = await fetchData(url);
+let status = await saveData(response);
+console.log(status);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p style=&quot;text-align: center; font-size: 1rem&quot;&gt;&lt;i&gt;Arrow functions vs. functions were another thing I had to wrap my head around, not to mention &quot;var&quot; vs. &quot;let&quot;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;Each one seemed to be more or less equivalent to the others, and I wondered why callbacks had to be changed in the first place. However, as I began working on projects, the benefits became clearer. Promises really &lt;em&gt;do&lt;/em&gt; make your code more readable, especially when dealing with long chains of callbacks. Additionally, async/await helps your async functions behave a bit more like synchronous functions, which I’ve found useful in certain situations.&lt;/p&gt;
+
+&lt;p&gt;If you’re just beginning to pick up JavaScript, I urge you to suspend judgement of these little inconveniences–developers are lazy by nature, so if there’s a new feature in a language, chances are that there were good reasons for it to be implemented. Also, don’t feel pressured to learn everything right away! In fact, I didn’t bother picking up async/await until I felt like I needed its functionality. Starting out is the hardest part of learning anything, and in my opinion, the most important thing to do in this phase is to keep yourself interested by learning things you’ll actually use. That brings me to my next point…&lt;/p&gt;
+
+&lt;h2 id=&quot;frameworks--packages&quot;&gt;Frameworks &amp;amp; Packages&lt;/h2&gt;
+&lt;p&gt;Once I got down to actually trying to build something, it seemed like vanilla JavaScript wasn’t going to cut it after all–I had to learn back-end frameworks like &lt;a href=&quot;https://expressjs.com/&quot;&gt;Express&lt;/a&gt;, front end frameworks like &lt;a href=&quot;https://reactjs.org/&quot;&gt;React&lt;/a&gt; and &lt;a href=&quot;https://jquery.com/&quot;&gt;jQuery&lt;/a&gt;, mapping tools like &lt;a href=&quot;http://docs.sequelizejs.com/&quot;&gt;Sequelize&lt;/a&gt; to interact with databases, and those are just the ones I’ve had time to learn so far. &lt;a href=&quot;https://hackernoon.com/how-it-feels-to-learn-javascript-in-2016-d3a717dd577f&quot;&gt;This article&lt;/a&gt; pretty much sums up how I felt.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;img src=&quot;https://nodejs.org/static/images/logos/nodejs-new-pantone-black.png&quot; style=&quot;height: 100px; vertical-align: middle&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://cdn.worldvectorlogo.com/logos/react.svg&quot; style=&quot;height: 80px; vertical-align: middle&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://angular.io/assets/images/logos/angular/angular.svg&quot; style=&quot;height: 85px; vertical-align: middle&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Vue.js_Logo.svg/800px-Vue.js_Logo.svg.png&quot; style=&quot;height: 85px; vertical-align: middle&quot; /&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;img src=&quot;http://docs.sequelizejs.com/manual/asset/logo-small.png&quot; style=&quot;height: 85px; vertical-align: middle&quot; /&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Now that I think back, though, I realize how insanely convenient it is to be able to learn a single programming language and go on to build your own web-app, database and server included. Yes, there &lt;strong&gt;is&lt;/strong&gt; a lot to learn, but I’m not entirely sure why that was so frustrating. I believe it has something to do with the fact that I haven’t grown up without the internet. Everything in this day and age is &lt;em&gt;expected&lt;/em&gt; to come with some sort of internet functionality, and so it becomes very easy to take web-apps for granted.&lt;/p&gt;
+
+&lt;p&gt;Learning to build a full-stack web application is definitely tough, but I’m grateful that the learning curve is significantly reduced these days with the ability to learn it all in one language. It would probably have taken me twice as long to build something if I had to learn Ruby/Go/PHP/Django (Python) and SQL on top of JavaScript (although I would like to pick up some of these in the future).&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;All-in-all, getting started in web development can be an incredibly frustrating task, but after the pain of building your first web-app, I think it’s important to take a step back and reflect on your frustrations. Learning a new skill is never easy, and especially for something as complex as &lt;strong&gt;building a secure, responsive application on the internet&lt;/strong&gt;, it shouldn’t be expected to be. At least in my case, having that perspective helps to keep me humble and motivated. I’m still a long way from knowing what I’d like to know, and I couldn’t be more excited about that.&lt;/p&gt;</content><summary type="html">The struggle of picking up JavaScript, and all the packages that come with it</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://i.imgur.com/lrgCHVu.jpg" /></entry></feed>

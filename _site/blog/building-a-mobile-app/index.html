@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+  Jekyll integration by somiibo.com
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+--><html>
+	<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<title>Building a Cross-Platform Mobile App</title>
+<meta name="description" content="">
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon/favicon-16x16.png">
+<link rel="manifest" href="/assets/icon/manifest.json">
+<link rel="mask-icon" href="/assets/icon/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="shortcut icon" href="/assets/icon/favicon.ico">
+<meta name="msapplication-config" content="/assets/icon/browserconfig.xml">
+<meta name="theme-color" content="#ffffff">
+
+<!-- CSS -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/syntax.css">
+<link rel="stylesheet" href="/assets/highlight/styles/atom-one-dark.css">
+<script src="/assets/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<noscript><link rel="stylesheet" href="/assets/css/noscript.css"></noscript>
+
+  </head>
+	<body class="is-loading">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Header -->
+        <header id="header">
+        </header>
+
+				<!-- Nav -->
+					<nav id="nav">
+
+            <ul class="links">
+  <li class=""><a href="/">Home</a></li>
+  <li class=""><a href="/about/">About</a></li>
+  <li class=" active "><a href="/blog/">Blog</a></li>
+  <li class=""><a href="/projects/">Projects</a></li>
+</ul>
+
+
+						<ul class="icons">
+	            <li><a href="https://github.com/daniellok" class="icon fa-github" rel="nofollow"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+				<div id="main">
+          <section class="post">
+    				<header class="major">
+      				<span class="date">03 Oct 2017</span>
+      				<h1>Building a Cross-Platform Mobile App</h1>
+      				<p>If you thought cross-browser compatibility was finicky...</p>
+      			</header>
+      			<div class="image main"><img src="https://camo.githubusercontent.com/0a5cdea7053e94023fb22b5241aa5e774ce0df9e/68747470733a2f2f63646e2e7261776769742e636f6d2f616873616e617a696d2f776f726b73686f702f6d61737465722f696d672f72656163742d6e61746976652d6c6f676f2e737667" alt=""></div>
+      			<p></p>
+<p>A while ago, a friend of mine asked me if I was interested in helping him build a couple of mobile apps to help streamline the business process for a local noodle supplier. It seemed like a fairly simple task–we wouldn’t be handling transactions, just building a platform to place orders and track deliveries.</p>
+
+<p>Since I had a bit of experience with React at this point, I figured that this project would be a good chance to give React Native a try. Plus, being committed to a project which you know will be used in a business always helps to keep you attentive and responsible. I agreed to take on the project, and although I haven’t finished building it yet, here are some tips I wish I had known before starting out.</p>
+
+<hr>
+
+<h2 id="react-native-is-great-but-it-has-its-shortcomings">React Native is great, but it has its shortcomings</h2>
+<p>React native is an amazing framework to conveniently build cross-platform apps, but this doesn’t mean that you don’t have to test on multiple devices! Much like how you should test your web-apps for cross-browser compatibility, it is important to test your React Native app on both iOS and Android to make sure things render as expected.</p>
+
+<p>I use a MacBook Pro with a 120GB SSD, and although I intended to install Android Studio and test on both platforms, I ran out of space after installing XCode. Until I found time to install it on an external hard-drive, I was careful not to use any components marked “iOS only”, and hoped for the best. However, when I finally got around to running the app on an Android device, I discovered that all my ScrollView components had their padding removed! <a href="https://github.com/facebook/react-native/issues/15707">After</a> <a href="https://github.com/facebook/react-native/issues/2914">Googling</a> <a href="https://github.com/facebook/react-native/issues/11367">around</a>, it seemed that other people have faced this problem, and used <code class="highlighter-rouge">margin</code> as a workaround.</p>
+
+<p>Fine. I changed my stylesheets, but unfortunately, <code class="highlighter-rouge">padding</code> and <code class="highlighter-rouge">margin</code> are not identical. <code class="highlighter-rouge">padding</code> adds space <em>within</em> an element, while <code class="highlighter-rouge">margin</code> adds space <em>around</em> an element. In the end, I had to change a few components from this:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>&lt;ScrollView style={{ padding: 20 }}&gt;
+  ... children
+&lt;/ScrollView&gt;
+</code></pre>
+</div>
+
+<p>to this:</p>
+
+<div class="highlighter-rouge">
+<pre class="highlight"><code>&lt;ScrollView&gt;
+  &lt;View style={{ margin: 20 }}&gt;
+    ... children
+  &lt;/View&gt;
+&lt;/ScrollView&gt;
+</code></pre>
+</div>
+
+<p>Although that was a slightly frustrating bug, React Native is robust enough that it was pretty much the only cross-platform issue I ran into. Additionally, a lot of work could have been avoided had I been testing on both OSes from the start. The true challenge was trying to make sure the app renders nicely across different devices.</p>
+
+<h2 id="cross-device-rendering">Cross-Device Rendering</h2>
+<p>There are a lot of phones on the market today, and there is a wide variety of different screen resolutions. However, <a href="http://iosres.com/">most</a> <a href="http://www.mi.com/en/list/">modern</a> <a href="https://www.samsung.com/us/mobile/phones/">phones</a> have a standard 16:9 aspect ratio (though the very latest models have been getting taller), so we can expect an app to more or less look the same across devices right? Wrong.</p>
+
+<p>One thing I hadn’t considered was the fact that I was using some fixed sizes in my styles. For example, it’s fairly common in apps to have a header and a footer element for navigation purposes.</p>
+
+<p><img src="http://is1.mzstatic.com/image/thumb/Purple118/v4/47/80/a1/4780a17a-276d-53c3-8d16-d9c3f09acc8f/source/392x696bb.jpg" style="margin: auto; display: block; max-width: 100%"></p>
+<p style="text-align: center; font-size: 1rem"><i>A header and footer in the Telegram app</i></p>
+
+<p>These elements should take up as little space as possible in order for the actual content to have more real estate on screen. Therefore, in general their height will be fixed, and will take up a smaller percentage of the screen on larger devices as compared to smaller devices.</p>
+
+<p>Additionally, since our app was catered toward an older demographic, we felt it was important that the font sizes and pictures be slightly larger than usual. I had been testing our app using a larger simulator, and when I ran the app on a smaller device, I found that the large font sizes and images caused some unintended wrapping. As a result of these fixed-width elements, the app was significantly different when rendered on two devices, even though their aspect ratio was the same.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td><img src="/assets/images/6s.png" width="100%"></td>
+      <td><img src="/assets/images/5.png" width="100%"></td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="text-align: center; font-size: 1rem"><i>The app on an iPhone 6s vs. an iPhone 5</i></p>
+
+<p>In the end, I suppose issues like these come down to design choices. Keeping in mind your target users, would you rather ensure the app renders nicely across all devices and change your original decisions, or stick with your choices and forsake some cross-device consistency? These are definitely not trivial choices, and something worth discussing with your team before moving forward.</p>
+
+<hr>
+
+<p>That’s all the tips I have for now! I’ll probably be making another post when I’m farther along in development, so look out for it!</p>
+
+      		</section>
+					</div>
+
+				<!-- Footer -->
+        <!-- Copyright -->
+<div id="copyright">
+  <ul>
+<li>© HTML5 UP</li>
+<li>Design by <a href="https://html5up.net">HTML5 UP</a>
+</li>
+<li>Jekyll Integration by <a href="https://somiibo.com">Somiibo</a>
+</li>
+</ul>
+</div>
+
+
+			</div>
+
+      <!-- Scripts -->
+  		<!-- DYN -->
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery.scrollex.min.js"></script>
+<script src="/assets/js/jquery.scrolly.min.js"></script>
+<script src="/assets/js/skel.min.js"></script>
+<script src="/assets/js/util.js"></script>
+<script src="/assets/js/main.js"></script>
+
+			<script async src="https://www.googletagmanager.com/gtag/js?id=default"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'default');
+</script>
+
+
+	</body>
+</html>
