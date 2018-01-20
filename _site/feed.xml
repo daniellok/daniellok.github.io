@@ -1,4 +1,97 @@
-<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-01-13T16:31:23+08:00</updated><id>/</id><title type="html">Daniel’s Programming Blog</title><subtitle>Jekyll version of the Massively theme by HTML5UP</subtitle><entry><title type="html">Pushing to Google Play &amp;amp; the App Store</title><link href="/blog/pushing-to-app-store/" rel="alternate" type="text/html" title="Pushing to Google Play &amp; the App Store" /><published>2017-12-21T00:00:00+08:00</published><updated>2017-12-21T00:00:00+08:00</updated><id>/blog/pushing-to-app-store</id><content type="html" xml:base="/blog/pushing-to-app-store/">&lt;p&gt;After close to four months of part-time work, we’ve finally pushed the first version of the apps to the Android and Apple app stores. Although the general public won’t be able to use the apps, some screenshots are available on the store pages (available in SG only):&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xml" href="/feed.xslt.xml"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.2.1">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-01-20T22:30:28+08:00</updated><id>/</id><title type="html">Daniel’s Programming Blog</title><subtitle>Jekyll version of the Massively theme by HTML5UP</subtitle><entry><title type="html">Edge Detection &amp;amp; Convolution with 2D Images</title><link href="/blog/convolution/" rel="alternate" type="text/html" title="Edge Detection &amp; Convolution with 2D Images" /><published>2018-01-18T00:00:00+08:00</published><updated>2018-01-18T00:00:00+08:00</updated><id>/blog/convolution</id><content type="html" xml:base="/blog/convolution/">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Convolution&quot;&gt;Convolution&lt;/a&gt; is an operation which has wide-reaching applications across different fields. In this post, I’ll be going through a visualization of convolution in the &lt;a href=&quot;https://en.wikipedia.org/wiki/Kernel_(image_processing)#Convolution&quot;&gt;context of image processing&lt;/a&gt;. I’ve also included a &lt;a href=&quot;https://github.com/daniellok/edge-detection/blob/master/edge-detection.ipynb&quot;&gt;Jupyter Notebook&lt;/a&gt; containing my implementation of the function, as well as my method for generating the GIFs used below (requires the &lt;a href=&quot;https://www.imagemagick.org/script/index.php&quot;&gt;ImageMagick&lt;/a&gt; CLI tools).&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;kernels&quot;&gt;Kernels&lt;/h2&gt;
+&lt;p&gt;If you’ve read about image processing, you’ve probably come across the concept of &lt;a href=&quot;https://en.wikipedia.org/wiki/Kernel_(image_processing)&quot;&gt;“kernels”&lt;/a&gt;. One thing that confused me (and continues to confuse me) is that “kernel” is such a &lt;a href=&quot;https://en.wikipedia.org/wiki/Kernel&quot;&gt;semantically overloaded term&lt;/a&gt; in math and computer science.&lt;/p&gt;
+
+&lt;p&gt;However, in the context of image processing, a kernel is simply a matrix! Here are some examples (a more comprehensive list can be found on &lt;a href=&quot;(https://en.wikipedia.org/wiki/Kernel_(image_processing))&quot;&gt;Wikipedia&lt;/a&gt;):&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Name&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Function&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Kernel&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Sobel (vertical)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Edge detection&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix} 1 &amp; 0 &amp; -1 \\ 2 &amp; 0 &amp; -2 \\ 1 &amp; 0 &amp; -1 \end{bmatrix} %]]&gt;&lt;/script&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Sobel (horizontal)&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Edge detection&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix} 1 &amp; 2 &amp; 1 \\ 0 &amp; 0 &amp; 0 \\ -1 &amp; -2 &amp; -1 \end{bmatrix} %]]&gt;&lt;/script&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Laplacian&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Edge detection&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix} 0 &amp; -1 &amp; 0 \\ -1 &amp; 4 &amp; -1 \\ 0 &amp; -1 &amp; 0 \end{bmatrix} %]]&gt;&lt;/script&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Box Blur&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Blurring&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+\frac{1}{9}\begin{bmatrix} 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \\ 1 &amp; 1 &amp; 1 \end{bmatrix} %]]&gt;&lt;/script&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Identity&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Nothing&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;&lt;script type=&quot;math/tex&quot;&gt;% &lt;![CDATA[
+\begin{bmatrix} 0 &amp; 0 &amp; 0 \\ 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 \end{bmatrix} %]]&gt;&lt;/script&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Now, what exactly does one do with these matrices, and how do they relate to image processing? In order to answer this question, we first need to go through exactly what an image is, and how we can even begin to process them.&lt;/p&gt;
+
+&lt;h2 id=&quot;what-is-an-image&quot;&gt;What is an image?&lt;/h2&gt;
+
+&lt;p&gt;It’s fairly common knowledge that a digital image is made of pixels, but we often don’t think about what exactly a pixel is.&lt;/p&gt;
+
+&lt;p&gt;In the context of image processing (which is important to specify, since it’s another &lt;a href=&quot;https://en.wikipedia.org/wiki/Pixel#Technical&quot;&gt;overloaded term&lt;/a&gt;), a pixel is simply an integer from 0 (black) - 255 (white). More formally, it is an 8-bit unsigned integer. An image, then, can be represented as a 2D array of these values.&lt;/p&gt;
+
+&lt;p&gt;Of course, having only one value means that we can’t represent color! For colored images, each pixel can typically be seen as a vector of length 3, whose elements are all integers from 0 - 255 representing the values of red, green, and blue respectively. We can think of a colored image as a 3D integer array (three 2D arrays layered on top of each other).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/rgb.png&quot; style=&quot;display: block; margin: auto; max-width: 250px;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center; font-size: 1rem&quot;&gt;&lt;i&gt;Imagine something that looks like this, but with numbers&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;Once we understand this concept, it becomes much easier to understand how we can use matrices to modify images.&lt;/p&gt;
+
+&lt;h2 id=&quot;convolution&quot;&gt;Convolution&lt;/h2&gt;
+
+&lt;p&gt;Convolution is exactly this process of using matrices (kernels) to modify images. The example kernels provided above are all three-by-three, but they can come in all shapes and sizes. Now, what exactly do we do with them?&lt;/p&gt;
+
+&lt;p&gt;From a high-level perspective, we are essentially just using the kernel to compare each pixel in our image to its neighboring pixels. Visually, imagine laying the kernel on top of our image. Each value in our kernel will be lined up with some value in the image. We multiply these values element-wise, sum them, and take the result as a new value in our output image! More specifically, if our kernel is centered on pixel \((x,y)\) of our input image, then the result of this operation will be the value of pixel \((x,y)\) of our output image.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/convolution.jpg&quot; style=&quot;display: block; margin: auto; max-width: 400px;&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center; font-size: 1rem&quot;&gt;&lt;i&gt;An exellent diagram from &lt;a href=&quot;http://machinelearninguru.com/computer_vision/basics/convolution/image_convolution_1.html#convolution&quot;&gt;machinelearninguru&lt;/a&gt;.&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;We simply repeat this process for every pixel in our input. To help visualize this, I’ve created a short animation of a kernel “sliding” over an image. The following example uses the Laplacian edge detection kernel on a 25-by-25 pixel drawing.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/dino.gif&quot; height=&quot;250&quot; width=&quot;500&quot; style=&quot;image-rendering: optimizeSpeed; image-rendering: -moz-crisp-edges;image-rendering: -o-crisp-edges; image-rendering: -webkit-optimize-contrast; image-rendering: pixelated; image-rendering: optimize-contrast; -ms-interpolation-mode: nearest-neighbor; margin: auto; display: block&quot; /&gt;&lt;/p&gt;
+&lt;p style=&quot;text-align: center; font-size: 1rem; max-width: 400px; display: block; margin: auto;&quot;&gt;&lt;i&gt;An example of image convolution. On the left is our input image, on the right is our output. The yellow box represents the kernel, and the center flashes red when the output value is greater than zero (i.e. non-black) &lt;a href=&quot;http://piq.codeus.net/picture/138943/untitled&quot;&gt;(image source: piq.codeus.net)&lt;/a&gt;&lt;/i&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+And that’s about it! Additionally, once you develop an intuition about how convolution works, you can more or less infer the function of a kernel from its structure. For example, the Box Blur kernel above averages a pixel’s value with that of its neighbors. The Laplacian kernel, on the other hand, changes a pixel’s value to zero (or close to it) if its neighbors are of a similar color (an indicator that the pixel does not belong to an edge).&lt;/p&gt;
+
+&lt;p&gt;Oh, and before I forget, there are a few things I’ve skipped over…&lt;/p&gt;
+&lt;dl&gt;
+&lt;dt&gt;How do you center the kernel on the edges/corners of the input image?&lt;/dt&gt;
+&lt;dd&gt;&lt;p&gt;There are multiple solutions for this, but ultimately it's up to you! You could treat the out-of-bound pixels as zeroes, you could pad the input image with a couple of extra rows and columns, or you can simply not bother calculating values for the edges. In the Jupyter Notebook provided above, I choose the latter approach (this is also visualized in the gif above).&lt;/p&gt;&lt;/dd&gt;
+&lt;dt&gt;If colored images are 3D arrays, how can we perform 2D convolution on them?&lt;/dt&gt;
+&lt;dd&gt;&lt;p&gt;Once again, there are a couple of approaches to this. In the case of edge detection, it is not necessary to preserve the color information of the original image. Therefore, we can convert the image to greyscale (i.e. a 2D array) before operating on it. In other cases where we might want to preserve color data (e.g. blurring, sharpening), we can perform the convolution individually on the red, green, and blue layers, and combine them afterward.&lt;/p&gt;&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;I hope you’ve been able to gain something useful from this post! Learning about image processing basics has really helped me demystify the inner workings of the image editors we use everyday (e.g. Instagram, Preview, Photoshop). And as always, the more you know, the more you are able to appreciate the work others have put in to develop the products we have today.&lt;/p&gt;</content><summary type="html">An introduction to a simple image processing technique</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="/assets/images/edge-detection.png" /></entry><entry><title type="html">Pushing to Google Play &amp;amp; the App Store</title><link href="/blog/pushing-to-app-store/" rel="alternate" type="text/html" title="Pushing to Google Play &amp; the App Store" /><published>2017-12-21T00:00:00+08:00</published><updated>2017-12-21T00:00:00+08:00</updated><id>/blog/pushing-to-app-store</id><content type="html" xml:base="/blog/pushing-to-app-store/">&lt;p&gt;After close to four months of part-time work, we’ve finally pushed the first version of the apps to the Android and Apple app stores. Although the general public won’t be able to use the apps, some screenshots are available on the store pages (available in SG only):&lt;/p&gt;
 
 &lt;h2 align=&quot;middle&quot;&gt;Driver App&lt;/h2&gt;
 

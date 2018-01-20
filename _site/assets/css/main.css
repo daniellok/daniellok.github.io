@@ -2837,19 +2837,19 @@
 
 		table th {
 			font-family: "Source Sans Pro", Helvetica, sans-serif;
-			font-size: 0.8rem;
+			font-size: 1.5rem;
 			font-weight: 900;
 			letter-spacing: 0.075em;
 			line-height: 1.5;
 			padding: 0 0.75rem 0.75rem 0.75rem;
-			text-align: left;
+			text-align: center;
 			text-transform: uppercase;
 		}
 
 			@media screen and (max-width: 980px) {
 
 				table th {
-					font-size: 0.9rem;
+					font-size: 1.5rem;
 				}
 
 			}
