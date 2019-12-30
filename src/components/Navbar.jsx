@@ -1,8 +1,8 @@
 /* @flow strict-local */
 import React from "react";
 import { navigate } from "@reach/router";
-import { routes } from "../App";
-import NavbarSuggestions from "./NavbarSuggestions";
+import { pages } from "../App";
+import NavbarLinks from "./NavbarLinks";
 import "../index.css";
 
 const path = require("path");
@@ -42,7 +42,7 @@ class Navbar extends React.PureComponent {
     }
     console.log(normalizedPath);
 
-    if (routes.includes(normalizedPath)) {
+    if (pages.includes(normalizedPath)) {
       if (normalizedPath !== this.props.path) {
         navigate(normalizedPath);
       } else {
@@ -151,7 +151,7 @@ class Navbar extends React.PureComponent {
             <pre>{errorMessage}</pre>
           </div>
         )}
-        <NavbarSuggestions path={this.props.path} />
+        <NavbarLinks path={this.props.path} />
       </div>
     );
   }

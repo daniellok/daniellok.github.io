@@ -67,12 +67,12 @@ pre {
   font-weight: bold;
 }
 
-.navbar-suggestions-wrapper {
+.navbar-links-wrapper {
   display: flex;
   padding: 2px 8px 8px 8px;
 }
 
-.navbar-suggestion {
+.navbar-link {
   border-radius: 5px;
   color: #cc0096;
   font-weight: bold;
@@ -81,7 +81,7 @@ pre {
   padding: 4px;
 }
 
-.navbar-suggestion:hover {
+.navbar-link:hover {
   background-color: rgba(245, 105, 255, 0.2);
   cursor: pointer;
 }

@@ -13,10 +13,17 @@ const Home = () => (
   </div>
 );
 
-const OtherPath = () => (
+const About = () => (
   <div className="App">
-    <Navbar path="/other/" />
-    <header className="App-header">Other page under construction too</header>
+    <Navbar path="/about/" />
+    <header className="App-header">About page under construction too</header>
+  </div>
+);
+
+const Posts = () => (
+  <div className="App">
+    <Navbar path="/posts/" />
+    <header className="App-header">Posts page under construction too</header>
   </div>
 );
 
@@ -24,22 +31,29 @@ function App() {
   return (
     <Router>
       <Home path="/" />
-      <OtherPath path="/other/" />
+      <About path="about/" />
+      <Posts path="posts/" />
     </Router>
   );
 }
 
 export default App;
-export const routes = ["/", "/other/"];
-export const routeHierarchy = {
+
+export const pages = ["/", "/about/", "/posts/"];
+export const pageHierarchy = {
   "/": {
     name: "home",
     parent: null,
-    children: ["/other/"]
+    links: ["/about/", "/posts/"]
   },
-  "/other/": {
-    name: "other",
+  "/about/": {
+    name: "about/",
     parent: "/",
-    children: []
+    links: []
+  },
+  "/posts/": {
+    name: "posts/",
+    parent: "/",
+    links: []
   }
 };
