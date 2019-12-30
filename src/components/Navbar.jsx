@@ -78,10 +78,10 @@ class Navbar extends React.PureComponent {
   };
 
   _toggleCaret = shouldRenderCaret => {
-    this.navRef.current.focus();
+    if (shouldRenderCaret) {
+      this.navRef.current.focus();
+    }
     this.setState({
-      offsetTop: this.navRef.current.offsetTop,
-      offsetLeft: this.navRef.current.offsetLeft,
       renderCaret: shouldRenderCaret
     });
   };
@@ -109,6 +109,7 @@ class Navbar extends React.PureComponent {
   render() {
     const { errorMessage, text, index, renderCaret } = this.state;
     const [caretStart, caretEnd] = this.calculateGradientStops(text, index);
+    console.log(renderCaret, caretStart, caretEnd);
 
     return (
       <div className="navbar">

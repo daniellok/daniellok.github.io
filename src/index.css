@@ -40,18 +40,14 @@ pre {
   padding: 12px 12px 4px 12px;
 }
 
-.navbar-input-wrapper > div > pre::selection {
-  background: rgba(0,0,0,0);
-}
-.navbar-input-wrapper > div > pre::-moz-selection {
-  background: rgba(0,0,0,0);
-}
-
 .navbar-input {
   border: none;
+  border-radius: 0px;
   color: white;
   caret-color: rgba(0,0,0,0);
   outline: 0;
+  padding: 0px;
+  margin: 0px;
   font-family: 'Source Code Pro', monospace;
   font-size: 20px;
 }
@@ -59,6 +55,11 @@ pre {
 .navbar-error-message {
   color: silver;
   padding-left: 12px;
+  white-space: pre-wrap;     
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap; 
+  word-wrap: break-word; 
 }
 
 .navbar-path {
