@@ -1,3 +1,57 @@
+@media screen and (max-width: 320px) {
+ html {
+    font-size: 7px;
+  }
+}
+
+@media screen and (min-width: 320px) {
+ html {
+    font-size: 8px;
+  }
+}
+
+@media screen and (min-width: 350px) {
+ html {
+    font-size: 9px;
+  }
+}
+
+@media screen and (min-width: 375px) {
+ html {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 490px) {
+ html {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  html {
+    font-size: 20px;
+  }
+} 
+
 body {
   background-color: #071630;
   color: white;
@@ -10,11 +64,17 @@ body {
 
 code {
   font-family:'Source Code Pro', monospace;
+  color: #ffa07a;
 }
 
 pre {
   font-family: 'Source Code Pro', monospace;
   margin: 0px;
+}
+
+pre > code {
+  border-radius: 5px;
+  color: white;
 }
 
 h1 {

@@ -10,12 +10,10 @@ function Post({ title, content, preview }) {
     displayedContent = content;
   }
   return (
-    <Link to={title}>
-      <div className="post-wrapper">
-        <h1>{"==> " + title + " <=="}</h1>
-        {displayedContent}
-      </div>
-    </Link>
+    <div className="post-wrapper">
+      <h1>{"==> " + title + " <=="}</h1>
+      {displayedContent}
+    </div>
   );
 }
 

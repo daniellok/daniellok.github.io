@@ -6,7 +6,8 @@ import { Router } from "@reach/router";
 import logo from "./logo.svg";
 import Post from "./Post";
 import TestPost1 from "./posts/TestPost1";
-import TestPost2 from "./posts/TestPost2";
+import TestPost2 from "./posts/test_post_2";
+import TestPost3 from "./posts/test_post_3";
 
 const Home = () => (
   <div>
@@ -36,6 +37,12 @@ const Posts = () => (
         path=":postName"
         title="test_post_2.txt"
         content={TestPost2()}
+        preview
+      />
+      <Post
+        path=":postName"
+        title="test_post_3.txt"
+        content={TestPost3()}
         preview
       />
     </div>
