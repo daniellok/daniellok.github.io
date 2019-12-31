@@ -24,7 +24,9 @@ class Navbar extends React.PureComponent {
   parsePath(text) {
     let pathToParse;
     if (text.length === 0) {
-      return;
+      this.setState({
+        errorMessage: ""
+      });
     }
 
     if (text === "~" || text === "home") {
@@ -56,6 +58,8 @@ class Navbar extends React.PureComponent {
     }
 
     this.setState({
+      index: 0,
+      text: "",
       errorMessage: `cd: no such file or directory ${this.state.text}`
     });
   }
@@ -109,7 +113,6 @@ class Navbar extends React.PureComponent {
   render() {
     const { errorMessage, text, index, renderCaret } = this.state;
     const [caretStart, caretEnd] = this.calculateGradientStops(text, index);
-    console.log(renderCaret, caretStart, caretEnd);
 
     return (
       <div className="navbar">
@@ -137,8 +140,8 @@ class Navbar extends React.PureComponent {
                 #071630 100%
               )`
                 : "#071630",
-              minWidth: (text.length + 1) * 12,
-              maxWidth: (text.length + 1) * 12
+              minWidth: (text.length + 1) * 0.9 + "rem",
+              maxWidth: (text.length + 1) * 0.9 + "rem"
             }}
             value={text}
             onChange={this._handleChange}
